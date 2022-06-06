@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, abort
+from flask import Flask, render_template, request, Response, flash, redirect, url_for
 from models.artist_model import Artist
 from flask_sqlalchemy import SQLAlchemy
 from forms import *
@@ -18,6 +18,7 @@ def artists():
     "id": 6,
     "name": "The Wild Sax Band",
   }]
+  data = Artist.query.all()
   return render_template('pages/artists.html', artists=data)
 
 def search_artists():
@@ -108,7 +109,8 @@ def show_artist(artist_id):
     "past_shows_count": 0,
     "upcoming_shows_count": 3,
   }
-  data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
+  #data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
+  data = Artist.query.filter_by(id=artist_id).all()[0]
   return render_template('pages/show_artist.html', artist=data)
 
 #  Update
@@ -150,8 +152,35 @@ def create_artist_submission():
   # TODO: modify data to be the data object returned from db insertion
 
   # on successful db insert, flash success
-  flash('Artist ' + request.form['name'] + ' was successfully listed!')
+  # flash('Artist ' + request.form['name'] + ' was successfully listed!')
   # TODO: on unsuccessful db insert, flash an error instead.
   # e.g., flash('An error occurred. Artist ' + data.name + ' could not be listed.')
+  error = False
+  data = Artist(
+    name=request.form['name'],
+    genres=request.form.getlist('genres'),
+    city=request.form['city'],
+    state=request.form['state'],
+    phone=request.form['phone'],
+    website_link=request.form['website_link'],
+    facebook_link=request.form['facebook_link'],
+    image_link=request.form['image_link'],
+    seeking_venue=True if 'seeking_venue' in request.form else False,
+    seeking_description=request.form['seeking_description'],
+  )
+  
+  try:
+    db.session.add(data)
+    db.session.commit()
+
+  except:
+    error = True
+    db.session.rollback()
+  finally: 
+    db.session.close()
+  if error: 
+    flash('An error occurred. Artist ' + request.form['name']+ ' could not be listed.')
+  if not error: 
+    flash('Artist ' + request.form['name'] + ' was successfully listed!')
   return render_template('pages/home.html')
 
