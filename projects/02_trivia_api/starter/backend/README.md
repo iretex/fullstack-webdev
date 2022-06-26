@@ -27,6 +27,10 @@ With Postgres running, restore a database using the trivia.psql file provided. F
 ```bash
 psql trivia < trivia.psql
 ```
+```
+createdb -U postgres trivia
+psql -U postgres -d trivia < trivia.psql
+```
 
 ### Running the server
 
