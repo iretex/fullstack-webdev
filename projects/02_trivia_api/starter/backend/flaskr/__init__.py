@@ -39,18 +39,18 @@ def create_app(test_config=None):
   '''
   @app.route("/categories")
   def show_categories():
-    selection = Category.query.order_by(Category.id).all()
+    data = Category.query.order_by(Category.id).all()
     # current_books = paginate_books(request, selection)
 
     # if len(current_books) == 0:
     #   abort(404)
 
-    return {
+    return jsonify(
+      {
         "success": True,
-        "categories": selection,
-        # "total_books": len(Book.query.all()),
+        "categories": [cat.format() for cat in data]
       }
-    
+    )
 
 
   '''
