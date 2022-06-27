@@ -139,6 +139,34 @@ def create_app(test_config=None):
   of the questions list in the "List" tab.  
   '''
 
+  @app.route("/questions", methods=["POST"])
+  def create_question():
+    body = request.get_json()
+
+    question = body.get("question", None)
+    answer_text = body.get("answer_text", None)
+    category = body.get("category", None)
+    difficulty_score = body.get("difficulty_score", None)
+
+    try:
+      question = Question(question=new_title, answer=answer_text, category=category, difficulty=difficulty_score)
+      question.insert()
+
+      selection = Question.query.order_by(Question.id).all()
+      current_questions = paginate_questions(request, selection)
+
+      return jsonify(
+        {
+          "success": True,
+          "created": question.id,
+          "questions": current_questions,
+          "total_questions": len(Question.query.all()),
+        }
+      )
+
+    except:
+      abort(422)
+
   '''
   @TODO: 
   Create a POST endpoint to get questions based on a search term. 
@@ -177,6 +205,31 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
+
+  @app.errorhandler(404)
+  def not_found(error):
+    return (
+      jsonify({"success": False, "error": 404, "message": "resource not found"}),
+      404,
+    )
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+    return (
+      jsonify({"success": False, "error": 422, "message": "unprocessable"}),
+      422,
+    )
+
+  @app.errorhandler(400)
+  def bad_request(error):
+    return jsonify({"success": False, "error": 400, "message": "bad request"}), 400
+
+  @app.errorhandler(405)
+  def not_found(error):
+    return (
+      jsonify({"success": False, "error": 405, "message": "method not allowed"}),
+      405,
+    )
   
   return app
 
