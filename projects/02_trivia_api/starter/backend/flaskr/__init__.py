@@ -3,8 +3,11 @@ from flask import Flask, request, abort, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
+import logging
 
 from models import setup_db, Question, Category
+
+logging.basicConfig(filename=f'{__name__}.log', level=logging.DEBUG)
 
 QUESTIONS_PER_PAGE = 10
 
@@ -30,6 +33,7 @@ def create_app(test_config=None):
     response.headers.add(
       "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS"
       )
+    response.headers.add('Access-Control-Allow-Origin','http://localhost:3000' )
     return response
 
   '''
@@ -48,7 +52,7 @@ def create_app(test_config=None):
     return jsonify(
       {
         "success": True,
-        "categories": [cat.format() for cat in category_data]
+        "categories": {cat.format()['id']:cat.format()['type'] for cat in category_data}
       }
     )
 
@@ -66,6 +70,9 @@ def create_app(test_config=None):
   Clicking on the page numbers should update the questions. 
   '''
 
+  category_data = Category.query.order_by(Category.id).all()
+  categories = {cat.format()['id']:cat.format()['type'] for cat in category_data}
+
   QUESTION_PER_PAGE = 10
 
 
@@ -82,7 +89,7 @@ def create_app(test_config=None):
   @app.route("/questions")
   def retrieve_questions():
     selection = Question.query.order_by(Question.id).all()
-    current_questions = paginate_questions(request, selection)
+    current_questions = paginate_questions(request, selection)  
 
     if len(current_questions) == 0:
       abort(404)
@@ -92,6 +99,8 @@ def create_app(test_config=None):
         "success": True,
         "questions": current_questions,
         "total_questions": len(Question.query.all()),
+        "categories": categories,
+        'currentCategory' : categories[current_questions[-1]['category']]
       }
     )
 
@@ -177,6 +186,47 @@ def create_app(test_config=None):
   only question that include that string within their question. 
   Try using the word "title" to start. 
   '''
+  # @app.route('/questions/<string:search_term>', methods=['POST'])
+  # def search_question(search_term):
+  #   selection = Question.query.filter(Question.question.ilike(f"%{search_term}%")).order_by(Question.id).all()
+  #   current_questions = paginate_questions(request, selection)
+
+  #   if len(current_questions) == 0:
+  #     abort(404)
+
+  #   return jsonify(
+  #     {
+  #       "success": True,
+  #       "questions": current_questions,
+  #       "total_match": len(selection),
+  #     }
+  #   )
+    
+  @app.route('/questions/search', methods=['POST'])
+  def search_question():
+    
+    body = request.get_json()
+    
+    if "searchTerm" in body:
+      search_term = body.get("searchTerm", None) #request.json['search']
+
+    if search_term:
+      selection = Question.query.filter(Question.question.ilike(f"%{search_term}%")).order_by(Question.id).all()
+      current_questions = paginate_questions(request, selection)
+
+      if len(current_questions) == 0:
+        abort(404)
+
+      return jsonify(
+        {
+          "search_term": search_term,
+          "success": True,
+          "questions": current_questions,
+          "total_match": len(selection),
+          'currentCategory' : categories[current_questions[-1]['category']]
+        }
+      )
+
 
   '''
   @TODO: 
@@ -186,6 +236,24 @@ def create_app(test_config=None):
   categories in the left column will cause only questions of that 
   category to be shown. 
   '''
+
+  @app.route('/categories/<int:category>/questions', methods=['GET'])
+  def retrieve_questions_by_category(category):
+    selection = Question.query.filter(Question.category == category).order_by(Question.id).all()
+    current_questions = paginate_questions(request, selection)
+
+    if len(current_questions) == 0:
+      abort(404)
+
+    return jsonify(
+      {
+        "success": True,
+        "question": current_questions,
+        "total_match": len(selection),
+        'current_category' : categories[category]
+      }
+    )
+
 
 
   '''
@@ -199,6 +267,34 @@ def create_app(test_config=None):
   one question at a time is displayed, the user is allowed to answer
   and shown whether they were correct or not. 
   '''
+
+  @app.route('/quizzes', methods=['POST'])
+  def retrieve_questions_quiz():
+
+    body = request.get_json()
+
+    quiz_category = body.get("category", None)
+    previous_question = body.get("pre_question", None)
+
+    selection = Question.query.filter(Question.category == quiz_category).order_by(Question.id).all()
+
+    current_questions = paginate_questions(request, selection)
+
+    if len(current_questions) == 0:
+      abort(404)
+
+    selected_question = random.choice([q for q in current_questions if q.get("id") not in previous_question])
+
+    previous_question.append(selected_question.get("id"))
+
+    return jsonify(
+      {
+        "success": True,
+        "quiz_category": quiz_category,
+        "question": selected_question,
+        "prev_question": previous_question
+      }
+    )
 
   '''
   @TODO: 
