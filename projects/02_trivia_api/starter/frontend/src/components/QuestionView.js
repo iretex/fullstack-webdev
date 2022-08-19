@@ -26,6 +26,7 @@ class QuestionView extends Component {
       url: `http://127.0.0.1:5000/questions?page=${this.state.page}`, //TODO: update request URL
       type: "GET",
       success: (result) => {
+        console.log(result.questions)
         this.setState({
           questions: result.questions,
           totalQuestions: result.total_questions,
@@ -62,6 +63,7 @@ class QuestionView extends Component {
       url: `http://127.0.0.1:5000/categories/${id}/questions`, //TODO: update request URL
       type: "GET",
       success: (result) => {
+        console.log(result)
         this.setState({
           questions: result.questions,
           totalQuestions: result.total_questions,
@@ -76,7 +78,7 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `http://127.0.0.1:5000/questions`, //TODO: update request URL
+      url: `http://127.0.0.1:5000/questions/search`, //TODO: update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',

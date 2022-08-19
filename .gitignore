@@ -13,3 +13,6 @@ ehthumbs.db
 Thumbs.db
 
 .github/**
+
+*.zip
+node_modules

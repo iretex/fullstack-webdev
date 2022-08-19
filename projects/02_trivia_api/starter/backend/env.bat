@@ -1,8 +1,0 @@
-SET DB_NAME=trivia
-SET DB_USER=postgres
-SET DB_PASSWD=iretex
-SET DB_HOST=localhost
-SET DB_PORT=5432
-SET FLASK_APP=flaskr
-SET FLASK_DEBUG=True
-SET FLASK_ENV=development

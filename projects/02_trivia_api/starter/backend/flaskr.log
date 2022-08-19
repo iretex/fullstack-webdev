@@ -364,3 +364,72 @@ INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 01:29:22] "GET /questions?page=1 HTTP/1
 INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 01:29:27] "GET /categories HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 01:29:30] "OPTIONS /quizzes HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 01:29:35] "GET /questions?page=1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 03:03:34] "GET /greeting HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 03:03:41] "GET /greeting HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 03:04:08] "GET / HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [06/Jul/2022 03:04:17] "GET /greeting HTTP/1.1" 404 -
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 326-010-858
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 326-010-858
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:55:03] "GET / HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:55:03] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:55:03] "GET /?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:55:03] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:55:03] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:55:03] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:55:03] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ng005454\\OneDrive\\Project\\ALX-T\\FSND\\projects\\02_trivia_api\\starter\\backend\\models.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 217-068-670
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:56:25] "GET / HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:56:25] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:56:25] "GET /?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:56:25] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:56:25] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:56:25] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:56:25] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ng005454\\OneDrive\\Project\\ALX-T\\FSND\\projects\\02_trivia_api\\starter\\backend\\flaskr\\__init__.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 217-068-670
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:46] "GET / HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:46] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:46] "GET /?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:46] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:46] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:46] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:46] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:49] "GET / HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:49] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:49] "GET /?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:49] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:49] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:49] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2022 12:59:49] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 217-068-670
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 217-068-670
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 217-068-670
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Detected change in 'C:\\Users\\ng005454\\OneDrive\\Project\\ALX-T\\FSND\\projects\\02_trivia_api\\starter\\backend\\flaskr\\__init__.py', reloading
+INFO:werkzeug: * Restarting with stat
