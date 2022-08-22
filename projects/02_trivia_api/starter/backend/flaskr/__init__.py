@@ -182,13 +182,9 @@ def create_app(test_config=None):
                 }
             )
 
-        except Exception as e:
-            #   print(sys.exc_info())
-            #   error = True
-            # if error:
-            # abort(422)
-            print(category_data, e)
-        # else:
+        except:
+            print(sys.exc_info())
+            abort(422)
 
     '''
   @TODO: 
@@ -288,43 +284,31 @@ def create_app(test_config=None):
   '''
     @app.route('/quizzes', methods=['POST'])
     def post_quiz():
-        error = False
         body = request.get_json()
-        quiz_category = body.get('quiz_category', None)
-        get_previous_question = body.get('previous_question', [])
-        try:
-            if quiz_category.get('id', None) == 0:
-                questionsQuery = Question.query.all()
-            else:
-                questionsQuery = Question.query.filter(
-                    Question.category == quiz_category.get('id', None)).all()
-            nextQuestion = random.choice(questionsQuery)
 
-            for _ in range(len(questionsQuery)):
-                if nextQuestion.id not in get_previous_question:
-                    get_previous_question.append(nextQuestion.id)
-            # while nextQuestion.id not in get_previous_question:
-            #     get_previous_question.append(nextQuestion.id)
+        category = body.get('quiz_category',None)
+        previous_questions = body.get('previous_questions', [])
 
-        except:
-            error = True
-            print(sys.exc_info())
-        if error:
-            abort(401)
+        if category.get('id') != 0:
+            questions = Question.query.filter_by(category=category.get('id')).all()
         else:
-            return jsonify(
-                {
+            questions = Question.query.all()
+
+        next_question = random.choice(questions).format()
+
+        while next_question['id'] in previous_questions:
+            next_question = random.choice(questions).format()
+
+            if (len(previous_questions) == len(questions)):
+                return jsonify({
                     'success': True,
-                    'question': {
-                        "answer": nextQuestion.answer,
-                        "category": nextQuestion.category,
-                        "difficulty": nextQuestion.difficulty,
-                        "id": nextQuestion.id,
-                        "question": nextQuestion.question
-                    },
-                    'previousQuestion': get_previous_question
-                }
-            ), 200
+                    'message': "end"
+                }), 200
+
+        return jsonify({
+            'success': True,
+            'question': next_question
+        }), 200
 
     '''
   @TODO: 
